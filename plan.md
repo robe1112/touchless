@@ -17,18 +17,85 @@ Build touchless fingerprint capture SDK for iOS, Android, and Flutter. Users cap
 - Shape from shading
 - Stereo vision
 - Structured light projection
+- Monocular 3D reconstruction (Cui et al., IEEE TPAMI 2023)
+- FingerSplat (3D Gaussian Splatting, 2025)
+- FingerNeRF (Neural Radiance Field, 2024)
 
 **Commercial Solutions**:
-- IDEMIA: Touchless fingerprint scanners
-- SecuGen: SG-F100 touchless sensor
+
+**IDEMIA MorphoWave Series**:
+- MorphoWave XP: 4 fingerprints in <1s, 100K records, 60 users/min, IP65, PoE+
+- MorphoWave SP: Simplified profile, 10K records
+- MorphoWave Compact: Wall-mounted, 20K records, IP65
+- MorphoWave TP: Ten-fingerprint capture, NIST certified
+
+**Veridium 4F-ID**:
+- Smartphone-based, 4 fingerprints in ~3 seconds
+- FMR 0.01%, FNMR 1.2%
+- Works with legacy databases
+- FBI certified, ISO/IEC compliant
+
+**SecuGen U-AIR**: Touchless USB fingerprint sensor
+
+**Xperix**:
+- RealScan SG10: Optical camera with AI liveness, 500 ppi, FAP 60
+- BioMini Slim 2S: Ultra-slim (13.5mm), IP65
+- RealScan S60: TFT optical sensor, PAD Level 1&2
+
+**TBS Biometrics 3D AIR**: Three-camera contactless scanner, 50K fingerprints
+
+**Other Vendors**:
 - Fujitsu: FI-230 touchless module
-- Veridium: Biometric touchless solutions
 - Suprema: BioLite touchless scanner
+- Neurotechnology VeriFinger: Cross-platform SDK, 40K fingerprints/sec
+- id3 Technologies Finger SDK: 0.3ms matching, <148 byte templates
+- Griaule GBS: 90-day trial, many scanner brands
 
 **Open-Source**:
+- YellowSense_Contactless_Fingerprint: End-to-end with liveness detection
+- fingerprint-recognition-with-mobile-camera: Pure Python/OpenCV
+- Touchless-Fingerprint-Recognition: Android camera + Python backend
+- mobiofp: YOLOv8 + U-Net implementation
 - MediaPipe: Hand/fingerprint tracking
 - OpenCV: Image processing
-- Custom CNN models
+
+### Accuracy Metrics
+
+**Commercial Systems (NISTIR 8307)**:
+- Stationary contactless: 0.8-1.6% FNIR
+- Mobile contactless: 5-15% EER
+
+**Academic Systems**:
+- Controlled: 10.71% EER
+- Unconstrained: 30.41% EER
+- Multi-finger fusion: 0% EER (controlled)
+
+**Performance Gap**:
+- Contact-to-contact: Near 0% EER
+- Stationary contactless: 0.8-1.6% FNIR
+- Mobile contactless (constrained): 10-30% EER
+- Mobile contactless (unconstrained): 30%+ EER
+
+### Security & Liveness Detection
+
+**Detection Techniques**:
+- Pore detection (real skin has pores)
+- Specular reflection analysis
+- Multi-spectral imaging
+- Paired flash imaging
+- CNN classifiers for fake detection
+- Texture analysis
+
+**Performance**:
+- EER target: <1% for commercial
+- Some research: EER as low as 2×10⁻⁶
+- LivDet-2023 Noncontact: 11.35% APCER, 0.62% BPCER
+
+**Emerging Technologies**:
+- Pulse-based detection (blood flow)
+- Thermal imaging (heat signatures)
+- Electrical impedance (tissue conductivity)
+- Multi-modal fusion
 
 ### Security Considerations
 

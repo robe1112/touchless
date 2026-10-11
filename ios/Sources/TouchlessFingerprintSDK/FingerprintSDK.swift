@@ -41,17 +41,29 @@ public class TouchlessFingerprintSDK {
         public var minImageQuality: Float
         public var minMinutiaeCount: Int
         public var matchingThreshold: Float
+        public var handDetector: HandDetector?
+        public var imageEnhancer: FingerprintEnhancer?
+        public var fingerprintExtractor: FingerprintExtractor?
+        public var fingerprintMatcher: FingerprintMatcher?
 
         public init(
             minImageResolution: CGSize = CGSize(width: 640, height: 480),
             minImageQuality: Float = 0.5,
             minMinutiaeCount: Int = 50,
-            matchingThreshold: Float = 0.7
+            matchingThreshold: Float = 0.7,
+            handDetector: HandDetector? = nil,
+            imageEnhancer: FingerprintEnhancer? = nil,
+            fingerprintExtractor: FingerprintExtractor? = nil,
+            fingerprintMatcher: FingerprintMatcher? = nil
         ) {
             self.minImageResolution = minImageResolution
             self.minImageQuality = minImageQuality
             self.minMinutiaeCount = minMinutiaeCount
             self.matchingThreshold = matchingThreshold
+            self.handDetector = handDetector
+            self.imageEnhancer = imageEnhancer
+            self.fingerprintExtractor = fingerprintExtractor
+            self.fingerprintMatcher = fingerprintMatcher
         }
     }
 
@@ -134,12 +146,12 @@ public class TouchlessFingerprintSDK {
     private let fingerprintMatcher: FingerprintMatcher
     private let database: FingerprintDatabase
 
-    public init(config: SDKConfig = SDKConfig(), database: FingerprintDatabase = InMemoryFingerprintDatabase()) {
+    public init(config: SDKConfig, database: FingerprintDatabase) {
         self.config = config
-        self.handDetector = HandDetector()
-        self.imageEnhancer = FingerprintEnhancer()
-        self.fingerprintExtractor = FingerprintExtractor()
-        self.fingerprintMatcher = FingerprintMatcher()
+        self.handDetector = config.handDetector ?? HandDetector()
+        self.imageEnhancer = config.imageEnhancer ?? FingerprintEnhancer()
+        self.fingerprintExtractor = config.fingerprintExtractor ?? FingerprintExtractor()
+        self.fingerprintMatcher = config.fingerprintMatcher ?? FingerprintMatcher()
         self.database = database
     }
 
