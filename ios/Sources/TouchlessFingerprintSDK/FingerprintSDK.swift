@@ -3,6 +3,7 @@ import AVFoundation
 import Vision
 import CoreImage
 import Accelerate
+import CoreGraphics
 
 /// Main SDK entry point for touchless fingerprint capture
 public class TouchlessFingerprintSDK {
@@ -155,17 +156,8 @@ public class TouchlessFingerprintSDK {
         self.database = database
     }
 
-    /// Capture fingerprint from camera and process immediately
-    public func captureAndProcess() async throws -> FingerprintResult {
-        guard let image = try await captureImage() else {
-            throw SDKError.cameraPermissionDenied
-        }
-
-        return processImage(image)
-    }
-
     /// Process a provided image for fingerprint extraction
-    public func processImage(_ image: UIImage) -> FingerprintResult {
+    public func processImage(_ image: CIImage) -> FingerprintResult {
         do {
             // Validate image quality
             guard validateImage(image) else {
@@ -209,7 +201,7 @@ public class TouchlessFingerprintSDK {
             }
 
             // Extract minutiae
-            let allMinutiae = enhancedImages.compactMap(imageEnhancer.extractMinutiae).flatMap { $0 }
+            let allMinutiae = enhancedImages.compactMap { imageEnhancer.extractMinutiae(from: $0) }.flatMap { $0 }
 
             if allMinutiae.count < config.minMinutiaeCount {
                 return FingerprintResult(
@@ -239,7 +231,7 @@ public class TouchlessFingerprintSDK {
     }
 
     /// Enroll fingerprint for a user
-    public func enrollFingerprint(from image: UIImage, userId: String) -> EnrollmentResult {
+    public func enrollFingerprint(from image: CIImage, userId: String) -> EnrollmentResult {
         let result = processImage(image)
 
         guard result.isValid else {
@@ -273,7 +265,7 @@ public class TouchlessFingerprintSDK {
     }
 
     /// Verify fingerprint against enrolled template
-    public func verifyFingerprint(from image: UIImage, userId: String) -> VerificationResult {
+    public func verifyFingerprint(from image: CIImage, userId: String) -> VerificationResult {
         let result = processImage(image)
 
         guard result.isValid else {
@@ -311,7 +303,7 @@ public class TouchlessFingerprintSDK {
     }
 
     /// Batch enroll from multiple images
-    public func enrollBatch(from images: [UIImage], userId: String) -> [EnrollmentResult] {
+    public func enrollBatch(from images: [CIImage], userId: String) -> [EnrollmentResult] {
         return images.map { image in
             enrollFingerprint(from: image, userId: userId)
         }
@@ -319,22 +311,15 @@ public class TouchlessFingerprintSDK {
 
     // MARK: - Private Helpers
 
-    private func captureImage() async throws -> UIImage? {
-        // Camera capture implementation
-        // TODO: Implement AVFoundation capture
-        return nil
-    }
-
-    private func validateImage(_ image: UIImage) -> Bool {
-        let width = image.size.width
-        let height = image.size.height
+    private func validateImage(_ image: CIImage) -> Bool {
+        let width = image.extent.width
+        let height = image.extent.height
 
         guard width >= config.minImageResolution.width,
               height >= config.minImageResolution.height else {
             return false
         }
 
-        // Quality check via image analysis
         return true
     }
 
@@ -344,9 +329,22 @@ public class TouchlessFingerprintSDK {
     }
 
     private func calculateConfidence(minutiaeCount: Int) -> Float {
-        // Confidence based on minutiae count and quality
         let baseConfidence = min(Float(minutiaeCount) / 100.0, 1.0)
         return baseConfidence
+    }
+}
+
+// MARK: - Fingerprint Template
+
+public struct FingerprintTemplate: Encodable {
+    public let minutiae: [MinutiaePoint]
+    public let userId: String?
+    public let createdAt: Date
+
+    public init(minutiae: [MinutiaePoint], userId: String? = nil) {
+        self.minutiae = minutiae
+        self.userId = userId
+        self.createdAt = Date()
     }
 }
 
@@ -368,30 +366,14 @@ public struct FingerprintRegion {
 
 public class HandDetector {
 
-    public func detectHands(image: UIImage) -> [HandLandmark]? {
-        // Vision framework hand pose detection
-        let handler = VNImageRequestHandler(ciImage: image.ciImage, orientation: image.imageOrientation)
+    public func detectHands(image: CIImage) -> [HandLandmark]? {
+        let handler = VNImageRequestHandler(ciImage: image, orientation: .up)
 
-        let request = VNDetectHandPoseRequest(completionHandler: handleHandPose)
-
-        do {
-            try handler.perform([request])
-            return request.results?.map { landmark in
-                HandLandmark(
-                    index: 0,
-                    x: landmark.position.x,
-                    y: landmark.position.y,
-                    z: 0.0
-                )
-            }
-        } catch {
-            print("Hand detection failed: \(error)")
-            return nil
-        }
+        // TODO: Implement hand detection (VNDetectHandRegionsRequest not available)
+        return nil
     }
 
     public func extractFingerprintRegions(landmarks: [HandLandmark]) -> [FingerprintRegion] {
-        // Extract fingertip regions (indices 8, 12, 16, 20 for fingers)
         let fingerTipIndices = [8, 12, 16, 20]
         let fingerNames = ["index", "middle", "ring", "pinky"]
 
@@ -417,11 +399,10 @@ public class HandDetector {
 
 public class FingerprintEnhancer {
 
-    public func enhance(image: UIImage) -> UIImage? {
-        guard let ciImage = image.ciImage else { return nil }
+    public func enhance(image: CIImage) -> CIImage? {
+        var processed = image
 
         // Grayscale
-        var processed = ciImage
         processed = processed.applyingFilter("CIColorControls", parameters: ["saturation": 0])
 
         // CLAHE-like enhancement
@@ -430,7 +411,14 @@ public class FingerprintEnhancer {
         // Sharpen
         processed = processed.applyingFilter("CISharpenLuminance", parameters: ["inputSharpening": 2.0])
 
-        return UIImage(ciImage: processed)
+        return processed
+    }
+
+    public func extractMinutiae(from image: CIImage) -> [MinutiaePoint]? {
+        // TODO: Implement Gabor filter for ridge enhancement
+        // TODO: Orientation field estimation
+        // TODO: Minutiae detection
+        return []
     }
 }
 
@@ -439,7 +427,7 @@ public class FingerprintEnhancer {
 public struct MinutiaePoint {
     public let x: Float
     public let y: Float
-    public let orientation: Float  // radians
+    public let orientation: Float
     public let type: MinutiaeType
 
     public enum MinutiaeType: String {
@@ -450,10 +438,8 @@ public struct MinutiaePoint {
 
 public class FingerprintExtractor {
 
-    public func extractMinutiae(image: UIImage) -> [MinutiaePoint]? {
-        // Gabor filter for ridge enhancement
-        // Orientation field estimation
-        // Minutiae detection
+    public func extractMinutiae(from image: CIImage) -> [MinutiaePoint]? {
+        // TODO: Implement minutiae extraction
         return []
     }
 }
@@ -463,8 +449,7 @@ public class FingerprintExtractor {
 public class FingerprintMatcher {
 
     public func compare(stored: Data, new: Data) -> Float {
-        // Template matching
-        // Minutiae comparison
+        // TODO: Implement template matching
         return 0.0
     }
 }
@@ -490,5 +475,19 @@ public class InMemoryFingerprintDatabase: FingerprintDatabase {
 
     public func delete(userId: String) {
         templates.removeValue(forKey: userId)
+    }
+}
+
+// MARK: - Helper Extensions
+
+extension CIImage {
+    func cropped(to region: FingerprintRegion) -> CIImage? {
+        let rect = CGRect(
+            x: CGFloat(region.centerX - region.radius),
+            y: CGFloat(region.centerY - region.radius),
+            width: CGFloat(region.radius * 2),
+            height: CGFloat(region.radius * 2)
+        )
+        return self.cropped(to: rect)
     }
 }
