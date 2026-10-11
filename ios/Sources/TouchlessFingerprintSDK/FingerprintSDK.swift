@@ -220,13 +220,6 @@ public class TouchlessFingerprintSDK {
                 fingerprintTemplate: template,
                 handLandmarks: landmarks
             )
-
-        } catch {
-            return FingerprintResult(
-                isValid: false,
-                confidence: 0,
-                errors: [error.localizedDescription]
-            )
         }
     }
 
@@ -350,14 +343,14 @@ public struct FingerprintTemplate: Encodable {
 
 // MARK: - Hand Detection
 
-public struct HandLandmark {
+public struct HandLandmark: Encodable {
     public let index: Int
     public let x: Float
     public let y: Float
     public let z: Float
 }
 
-public struct FingerprintRegion {
+public struct FingerprintRegion: Encodable {
     public let centerX: Float
     public let centerY: Float
     public let radius: Float
@@ -367,9 +360,7 @@ public struct FingerprintRegion {
 public class HandDetector {
 
     public func detectHands(image: CIImage) -> [HandLandmark]? {
-        let handler = VNImageRequestHandler(ciImage: image, orientation: .up)
-
-        // TODO: Implement hand detection (VNDetectHandRegionsRequest not available)
+        // TODO: Implement hand detection
         return nil
     }
 
@@ -385,7 +376,7 @@ public class HandDetector {
                 centerX: landmark.x,
                 centerY: landmark.y,
                 radius: 50.0,
-                fingerType: fingerNames[index] ?? "unknown"
+                fingerType: fingerNames[index]
             )
         }
     }
@@ -424,13 +415,13 @@ public class FingerprintEnhancer {
 
 // MARK: - Fingerprint Extraction
 
-public struct MinutiaePoint {
+public struct MinutiaePoint: Encodable {
     public let x: Float
     public let y: Float
     public let orientation: Float
     public let type: MinutiaeType
 
-    public enum MinutiaeType: String {
+    public enum MinutiaeType: String, Encodable {
         case ending
         case bifurcation
     }

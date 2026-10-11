@@ -5,11 +5,11 @@
 
 ### 1.1 Purpose
 
-Define requirements for touchless fingerprint capture SDK enabling biometric authentication via hand photos. Users capture fingerprints by photographing hands or supplying existing photos.
+Define requirements for touchless fingerprint capture SDK enabling biometric authentication via hand photos and video. Users capture fingerprints by photographing hands or supplying existing photos and video.
 
 ### 1.2 Scope
 
-SDK for iOS, Android, and Flutter platforms. Extracts fingerprint data from 2D images, performs liveness detection, matches against enrolled templates.
+SDK for iOS, Android, and Flutter platforms. Extracts fingerprint data from 2D images and video, performs liveness detection, matches against enrolled templates.
 
 ### 1.3 Definitions
 
@@ -50,10 +50,11 @@ Mobile SDK integrated into biometric authentication apps. Replaces traditional c
 
 #### 3.1.1 Photo Capture
 - **FR-CAM-001**: SDK shall capture fingerprint image via device camera
-- **FR-CAM-002**: SDK shall accept existing photos from gallery
-- **FR-CAM-003**: Minimum resolution 640x480 pixels
-- **FR-CAM-004**: Support rear-facing camera (higher quality)
-- **FR-CAM-005**: Real-time preview with hand detection overlay
+- **FR-CAM-002**: SDK shall capture fingerprint video via device camera
+- **FR-CAM-003**: SDK shall accept existing photos from gallery
+- **FR-CAM-004**: Minimum resolution 640x480 pixels
+- **FR-CAM-005**: Support rear-facing camera (higher quality)
+- **FR-CAM-006**: Real-time preview with hand detection overlay
 
 #### 3.1.2 AR Guidance
 - **FR-AR-001**: SDK shall use ARKit (iOS) / ARCore (Android) for distance measurement
