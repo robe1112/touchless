@@ -281,6 +281,7 @@ CREATE TABLE persons (
 CREATE TABLE fingerprints (
     fingerprint_id VARCHAR(64) PRIMARY KEY,
     person_id VARCHAR(64) REFERENCES persons(person_id),
+    finger_identifier VARCHAR(16), -- left_index, right_pinky, etc.
     template_data BYTEA, -- ISO/IEC 19794-2 format
     segmented_image_data BYTEA, -- JPEG fingerprint ROI
     segmented_image_mime_type VARCHAR(32), -- image/jpeg
@@ -288,6 +289,10 @@ CREATE TABLE fingerprints (
     quality_score INTEGER,
     created_at TIMESTAMP
 );
+
+-- Index for efficient 10-finger lookups
+CREATE INDEX idx_fingerprints_person ON fingerprints(person_id);
+CREATE INDEX idx_fingerprints_person_finger ON fingerprints(person_id, finger_identifier);
 ```
 
 ### MatchResults Table
