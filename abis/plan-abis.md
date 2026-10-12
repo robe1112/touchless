@@ -13,6 +13,14 @@ Enterprise-scale biometric system integrating multiple modalities, matchers, and
 - Multi-camera support for stereo/3D fingerprint capture
 - Video stream processing for liveness detection
 - Image quality assessment and rejection
+- **Mobile-only feature extraction (PREFERRED)**: ROI detection, enhancement, template generation on device. Server receives templates only.
+- **Concerns**: Mobile compute limits, inconsistent quality across devices, need robust on-device enhancement
+
+**Matcher Orchestration Service**
+- Dynamic matcher selection and routing
+- Parallel matcher execution
+- Result aggregation and normalization
+- Fallback and redundancy handling
 
 **Matcher Orchestration Service**
 - Dynamic matcher selection and routing
@@ -42,14 +50,14 @@ Enterprise-scale biometric system integrating multiple modalities, matchers, and
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      Client Applications                      │
-│              (Web UI, Mobile App, REST API)                   │
+│                      Client Applications                    │
+│              (Web UI, Mobile App, REST API)                 │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                   Load Balancer / API Gateway                 │
-│              (Authentication, Rate Limiting)                  │
+│                   Load Balancer / API Gateway               │
+│              (Authentication, Rate Limiting)                │
 └─────────────────────────────────────────────────────────────┘
                               │
               ┌───────────────┼───────────────┐
@@ -64,7 +72,7 @@ Enterprise-scale biometric system integrating multiple modalities, matchers, and
               └───────────────┼───────────────┘
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                  Database Cluster                             │
+│                  Database Cluster                           │
 │  - Template Store (PostgreSQL + vector DB)                  │
 │  - Identity Registry                                        │
 │  - Audit Logs                                               │
@@ -122,6 +130,14 @@ final_score = sum(weight_i * normalized_score_i for all matchers)
 - Dimensionality reduction (PCA, LDA)
 - Learned fusion (neural network)
 
+**Best of Biometrics (BoB)**
+- Select highest matcher score as final decision
+- Bypasses fusion complexity
+- Optimizes for lowest False Rejection Rate
+- Use case: High-security access where false reject is worse than false accept
+- Configuration: `fusion_strategy: bob`
+- Formula: `final_score = max(score_1, score_2, ..., score_n)`
+
 ## API Specification
 
 ### Capture API
@@ -152,7 +168,7 @@ Content-Type: application/json
 Request:
 {
   "person_id": "string",
-  "fingerprint_data": "base64",
+  "template_data": "base64", -- Extracted on mobile, not raw image
   "metadata": {}
 }
 
@@ -163,6 +179,8 @@ Response:
   "status": "success|rejected"
 }
 ```
+- **Mobile extraction**: Raw images processed on device. Only templates sent to server.
+- **Server receives**: ISO/IEC 19794-2 templates, not raw fingerprint images.
 
 ### Verification API
 ```
@@ -220,7 +238,7 @@ Request:
 {
   "fingerprint_data": "base64",
   "matchers": ["svnview2", "nist", "nbis"],
-  "fusion_strategy": "score|decision|feature",
+  "fusion_strategy": "score|decision|feature|bob",
   "weights": {
     "svnview2": 0.3,
     "nist": 0.3,
@@ -234,9 +252,12 @@ Response:
   "fusion_result": "match|no_match",
   "individual_scores": {...},
   "combined_score": 0-100,
-  "confidence": 0-1
+  "confidence": 0-1,
+  "winner_matcher": "nbis" -- For BoB, indicates highest score matcher
 }
 ```
+- **BoB mode**: Returns `winner_matcher` field showing which matcher had highest score
+- **Use case**: High-security where minimizing false rejects is critical
 
 ### System Status API
 ```
@@ -268,12 +289,29 @@ Response:
 CREATE TABLE persons (
     person_id VARCHAR(64) PRIMARY KEY,
     external_id VARCHAR(128),
-    photo_data BYTEA, -- JPEG/PNG photo of person
-    photo_mime_type VARCHAR(32), -- image/jpeg, image/png
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     status VARCHAR(20) -- active, inactive, watchlist
 );
+
+CREATE INDEX idx_persons_external ON persons(external_id);
+```
+
+### Faces Table
+```sql
+CREATE TABLE faces (
+    face_id VARCHAR(64) PRIMARY KEY,
+    person_id VARCHAR(64) REFERENCES persons(person_id),
+    face_image_data BYTEA, -- JPEG face photo
+    face_image_mime_type VARCHAR(32), -- image/jpeg
+    face_encoding BYTEA, -- Face embedding vector (e.g., 128-dim)
+    quality_score INTEGER,
+    captured_at TIMESTAMP,
+    created_at TIMESTAMP
+);
+
+CREATE INDEX idx_faces_person ON faces(person_id);
+CREATE INDEX idx_faces_encoding ON faces USING ivfflat (face_encoding vector_cosine_ops);
 ```
 
 ### Fingerprints Table
@@ -428,6 +466,10 @@ CREATE TABLE audit_log (
 ### Phase 1: MVP (Weeks 1-4)
 - [ ] Core REST API server
 - [ ] Single matcher integration (NBIS)
+- [ ] Mobile-only feature extraction (ROI, enhancement, template)
+- [ ] Server receives templates only, not raw images
+- [ ] Server-based verification (1:1 and 1:N)
+- [ ] Offline verification support (mobile-only 1:1 with cached template)
 - [ ] Basic enrollment/verification
 - [ ] Simple SQLite database
 
@@ -440,7 +482,8 @@ CREATE TABLE audit_log (
 ### Phase 3: Fusion Engine (Weeks 9-12)
 - [ ] Score-level fusion
 - [ ] Configurable weights
-- [ ] Fusion API endpoint
+- [ ] BoB (Best of Biometrics) strategy
+- [ ] Fusion API endpoint with strategy selection
 - [ ] Performance optimization
 
 ### Phase 4: Video Processing (Weeks 13-16)
@@ -490,6 +533,14 @@ FUSION_WEIGHT_NBIS=0.4
 API_PORT=8080
 API_HOST=0.0.0.0
 LOG_LEVEL=INFO
+
+# Mobile Extraction (PREFERRED)
+MOBILE_EXTRACTION_ENABLED=true
+SERVER_EXTRACTION_FALLBACK=false -- Only if mobile extraction fails
+
+# Mobile constraints
+MOBILE_MIN_RESOLUTION=500x500
+MOBILE_MAX_FILESIZE=5MB
 ```
 
 ### Matcher Config File
@@ -514,18 +565,27 @@ matchers:
     threshold: 55
 
 fusion:
-  strategy: weighted_score
+  strategy: weighted_score -- options: weighted_score, majority_voting, bob (best of biometrics)
   default_weights:
     svnview2: 0.3
     nist: 0.3
     nbis: 0.4
   adaptive_learning: false
+  bob:
+    enabled: false
+    description: "Select highest matcher score, minimize false rejects"
 
 video:
   enabled: true
   fps: 30
   resolution: 1280x720
   liveness_check: true
+
+# Mobile extraction preference
+extraction:
+  preferred: mobile -- mobile, server, or hybrid
+  mobile_timeout_ms: 5000
+  server_fallback: false
 ```
 
 ## Monitoring
