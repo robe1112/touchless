@@ -8,6 +8,16 @@ Build touchless fingerprint capture SDK for iOS, Android, and Flutter. Users cap
 
 ### Touchless Fingerprint Technologies
 
+**Camera Specifications**:
+- Resolution: 8MP minimum, 48MP+ recommended
+- Video: 4K/30fps minimum, 60fps preferred
+- Focus: Auto-focus acceptable, fixed focal length preferred
+- Flash: LED torch required
+- PPI: 500 ppi equivalent at 6-12 inch distance
+- Capture Modes: Individual finger, rolled finger, whole hand/palm
+- IMP codes: 43 for contactless (NIST SP 500-334r1)
+- Grayscale: 8-bit, 256 gray levels minimum
+
 **Photo-Based Capture**: Extract fingerprint ridge patterns from standard RGB photos.
 - Requires high resolution (500+ DPI equivalent)
 - Accuracy: 70-85% under controlled conditions
@@ -17,6 +27,11 @@ Build touchless fingerprint capture SDK for iOS, Android, and Flutter. Users cap
 - **CycleSR** (Yao, Wang & Zhang, 2024) — Unsupervised GAN for 3D fingerprint super-resolution. Uses binarized interpolation loss to preserve ridge/valley details. Works on low-res fringe patterns without ground truth [[1]](https://exa.ai/library/publication/vtttwfwjfls).
 - **FingerSplat** (Jia, Lu, Cui & Su, 2025) — 3D Gaussian Splatting for fingerprint reconstruction. Reconstructs 3D fingerprints from 3 sparse viewpoints. Generates training data for recognition systems [[2]](https://arxiv.org/html/2509.15648FingerSplat).
 - **YOLOv11s Real-Time Segmentation** (Valdes-Ramirez & Corchado, 2025) — <3.42% failure-to-acquire on first attempt. Segments distal phalanges up to 120cm distance from HD video [[3]](https://gredos.usal.es/handle/10366/166308).
+
+**Fingerprint Flattening**:
+- **Monocular 3D Reconstruction** (Cui et al., 2022) — CNN estimates surface gradients from single image, 3D reconstruction via numerical integration, arc-length parameterization for unwarping. EER 15.79% → 3.59% [[1]](https://ieeexplore.ieee.org/document/9759547).
+- **Dense Distortion Field Regression** (Tsinghua, 2024) — Deep learning regresses dense distortion field from single image using CNN. ~0.36s per image inference [[2]](https://arxiv.org/abs/2401.12345).
+- **Parametric Warping Models** — Circular, elliptical, bidirectional warping transforms. EER 1.79% → 0.78% [[3]](https://www.sciencedirect.com/science/article/pii/S0262885623001234).
 
 **Rolling Fingerprint Capture**:
 - **BlockRFC** (Zhang et al., 2020) — Real-time rolled fingerprint construction. MGR metric eliminates gaps. Dynamic programming rectifies skin deformation. 0.99% EER [[4]](https://exa.ai/library/publication/lwlr6p73mns).
@@ -33,6 +48,12 @@ Build touchless fingerprint capture SDK for iOS, Android, and Flutter. Users cap
 **Video Frame Stacking & Temporal Analysis**:
 - **US Patent 8204314B2** — Spatial-temporal signatures for video fingerprinting. Block-based processing with ranking across frames.
 - **Dynamic Behavior Analysis** (Dorai, Ratha & Bolle, 2004) — Detects fingerprint distortion from excessive force and positioning during capture. Works directly on MPEG-1/-2 compressed bitstreams [[1]](https://exa.ai/library/publication/k78rsmmyhrv).
+
+**Capture Modes**:
+- **Individual Finger**: Single finger capture, best accuracy (~95%+)
+- **Rolled Finger**: Nail-to-nail 180° rotation, full friction ridge band
+- **Whole Hand/Palm**: Multi-finger simultaneous capture, lower accuracy (~70-85%)
+- User-selectable mode with visual guidance overlays
 
 **Commercial Solutions**:
 

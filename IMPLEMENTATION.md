@@ -27,16 +27,31 @@
 
 ### iOS
 - [ ] AVFoundation camera wrapper
+- [ ] 48MP+ camera sensor support
+- [ ] 4K/60fps video capture
+- [ ] LED flash control
+- [ ] Camera mode selection (individual/rolled/whole hand)
+- [ ] PPI calibration for 6-12 inch distance
 - [ ] Camera preview view
 - [ ] Capture button handler
 
 ### Android
 - [ ] CameraX camera wrapper
+- [ ] 48MP+ camera sensor support
+- [ ] 4K/60fps video capture
+- [ ] LED flash control
+- [ ] Camera mode selection (individual/rolled/whole hand)
+- [ ] PPI calibration for 6-12 inch distance
 - [ ] Camera preview view
 - [ ] Capture button handler
 
 ### Flutter
 - [ ] Camera plugin integration
+- [ ] 48MP+ camera sensor support
+- [ ] 4K/60fps video capture
+- [ ] LED flash control
+- [ ] Camera mode selection (individual/rolled/whole hand)
+- [ ] PPI calibration for 6-12 inch distance
 - [ ] Image picker integration
 
 ## Phase 3: Hand Detection (Week 3)

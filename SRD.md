@@ -57,7 +57,7 @@ Mobile SDK integrated into biometric authentication apps. Replaces traditional c
 - **FR-CAM-006**: Real-time preview with hand detection overlay
 
 #### 3.1.2 Video Capture & Super-Resolution
-- **FR-CAM-010**: Capture fingerprint video at 30fps minimum
+- **FR-CAM-010**: Capture fingerprint video at 30fps minimum, 60fps preferred
 - **FR-CAM-011**: Support YOLOv11s real-time segmentation for distal phalanges
 - **FR-CAM-012**: Frame stacking with sub-pixel alignment
 - **FR-CAM-013**: CycleSR-style unsupervised GAN for super-resolution
@@ -66,6 +66,27 @@ Mobile SDK integrated into biometric authentication apps. Replaces traditional c
 - **FR-CAM-016**: Rolling fingerprint capture with BlockRFC mosaicking
 - **FR-CAM-017**: MGR (Mosaicking Gap Rate) metric <1%
 - **FR-CAM-018**: Real-time distortion rectification for rolling capture
+
+#### 3.1.3 Camera Specifications
+- **FR-CAM-020**: Minimum 8MP camera resolution (industry standard)
+- **FR-CAM-021**: Recommend 48MP+ camera for better ridge detail
+- **FR-CAM-022**: Video capture 4K at 30fps minimum, 60fps preferred
+- **FR-CAM-023**: Auto-focus acceptable, fixed focal length preferred
+- **FR-CAM-024**: LED flash/torch support required
+- **FR-CAM-025**: 500 ppi equivalent at capture distance (6-12 inches)
+- **FR-CAM-026**: Support rear-facing camera (higher quality)
+- **FR-CAM-027**: Capture dimension: nail-to-nail coverage ~1.6" x 1.5"
+- **FR-CAM-028**: 8-bit grayscale, 256 gray levels minimum
+- **FR-CAM-029**: Dynamic range minimum 150 gray levels
+
+#### 3.1.4 Capture Modes
+- **FR-CAM-030**: Individual finger capture mode (single finger, best accuracy)
+- **FR-CAM-031**: Rolled finger capture mode (nail-to-nail 180° deflection)
+- **FR-CAM-032**: Whole hand/palm capture mode (multi-finger simultaneous)
+- **FR-CAM-033**: IMP code 43 for contactless capture (NIST SP 500-334r1)
+- **FR-CAM-034**: Support IMP codes 24/25/41/42 for variations
+- **FR-CAM-035**: User-selectable capture mode
+- **FR-CAM-036**: Visual guidance for each capture mode
 
 #### 3.1.2 AR Guidance
 - **FR-AR-001**: SDK shall use ARKit (iOS) / ARCore (Android) for distance measurement
