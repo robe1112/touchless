@@ -79,6 +79,18 @@ Mobile SDK integrated into biometric authentication apps. Replaces traditional c
 - **FR-CAM-028**: 8-bit grayscale, 256 gray levels minimum
 - **FR-CAM-029**: Dynamic range minimum 150 gray levels
 
+#### 3.1.5 Focus Control
+- **FR-CAM-030**: Manual autofocus control (lock/unlock focus)
+- **FR-CAM-031**: Focus distance calibration for 6-12 inch range
+- **FR-CAM-032**: Multi-burst capture at multiple focus distances
+- **FR-CAM-033**: Sharpness detection for optimal frame selection
+- **FR-CAM-034**: Focus quality validation before capture acceptance
+- **FR-CAM-035**: Fixed focal depth at calibrated distance
+- **FR-CAM-036**: Aperture control for consistent depth of field
+- **FR-CAM-037**: Focus lock triggered when finger detected in range
+- **FR-CAM-038**: Continuous autofocus during video capture
+- **FR-CAM-039**: Focus distance metadata in captured frames [[1]](https://pmc.ncbi.nlm.nih.gov/articles/PMC8839666/).
+
 #### 3.1.4 Capture Modes
 - **FR-CAM-030**: Individual finger capture mode (single finger, best accuracy)
 - **FR-CAM-031**: Rolled finger capture mode (nail-to-nail 180° deflection)
@@ -333,13 +345,53 @@ class TouchlessFingerprintSDK {
 
 ### 6.1 References
 
-- ISO/IEC 19794-2: Biometric data interchange
-- NIST Biometric Standards
-- BIPA Statute (430 ILCS 400)
-- GDPR Article 9: Special categories of data
+**Video-Based Super-Resolution**:
+- CycleSR: Yao, Wang & Zhang (Zhejiang Univ. Tech, 2024) — Unsupervised GAN for 3D fingerprint super-resolution [[1]](https://exa.ai/library/publication/vtttwfwjfls).
+- FingerSplat: Jia, Lu, Cui & Su (Beijing Univ. Posts & Telecom, 2025) — 3D Gaussian Splatting for fingerprint reconstruction [[2]](https://arxiv.org/html/2509.15648FingerSplat).
+- YOLOv11s Segmentation: Valdes-Ramirez & Corchado (Universidad de Salamanca, 2025) — Real-time HD video fingerprint segmentation [[3]](https://gredos.usal.es/handle/10366/166308).
+
+**Fingerprint Flattening**:
+- Monocular 3D Reconstruction: Cui et al. (IEEE TPAMI, 2022/2023) — CNN-based surface gradient estimation, arc-length unwarping [[1]](https://ar5iv.labs.arxiv.org/html/2205.00967).
+- Dense Distortion Field: Guan, Duan, Feng & Zhou (Tsinghua Univ, 2024) — Deep learning distortion field regression [[2]](https://arxiv.org/html/2404.17610).
+- Parametric Warping: Söllinger & Uhl (2021) — Circular, elliptical, bidirectional warping models [[3]](https://exa.ai/library/publication/x89m4yvqtws).
+
+**Rolling Fingerprint Capture**:
+- BlockRFC: Zhang et al. (2020) — Real-time rolled fingerprint construction with MGR metric [[4]](https://exa.ai/library/publication/lwlr6p73mns).
+- Krahula Thesis: Jan Krahula (Brno Univ. Tech, 2025) — Rotating arm device fingerprint video [[5]](https://www.vut.cz/en/students/final-thesis/detail/169635).
+
+**Liveness Detection**:
+- CNN-LSTM: Chugh & Jain (Michigan State Univ, 2019) — Temporal analysis for skin blanching, perspiration detection [[1]](https://arxiv.org/pdf/1912.08240.pdf).
+- GestSpoof (2024) — Gesture-based spatio-temporal representation for elastic property capture [[2]](https://exa.ai/library/publication/9lfzr7tdpfn).
+- Dual-Model Synergy: Cheniti et al. (2025) — VGG16 + ResNet50 ensemble for spoof detection [[3]](https://www.mdpi.com/2313-433X/11/2/42).
+- Spatio-Temporal Features: Husseis et al. (Sensors 2021) — VLBP, LBP-TOP, VLPQ descriptors [[4]](https://www.mdpi.com/1424-8220/21/6/2059).
+
+**Capture Modes & Standards**:
+- NIST SP 500-339 (April 2023) — Certification testing specification for contactless devices [[1]](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.500-339.pdf).
+- NIST SP 500-334r1 (Aug 2024) — Contactless fingerprint capture best practice, IMP code 43 [[2]](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.500-334r1.pdf).
+- NIST SP 500-305 (July 2018) — Guidance for evaluating contactless acquisition devices [[3]](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.500-305.pdf).
+- NIST IR 8307 (2020) — Interoperability assessment contactless-to-contact [[4]](https://nvlpubs.nist.gov/nistpubs/ir/2020/NIST.IR.8307.pdf).
+
+**Focus Control**:
+- Mobile Touchless Research (2021) — Automatic focus control, multi-burst capture, sharpness detection [[1]](https://pmc.ncbi.nlm.nih.gov/articles/PMC8839666/).
+- US Patent 9672406B2 — Touchless fingerprint acquisition for mobile devices.
+- Synolo Biometrics (US Patent 12586405) — Fixed focal length optics with aperture selectors.
+- MOQI Technology (US Patent 11734948) — Multiple cameras with structured light.
+
+**General References**:
+- ISO/IEC 19794-2:2011 — Biometric data interchange format (fingerprint).
+- ISO/IEC 29141:2009 — Fingerprint image data interchange.
+- BIPA Statute (430 ILCS 400) — Illinois biometric information privacy.
+- GDPR Article 9 — Special categories of personal data.
+- SWGDE Guidelines (2017) — Capturing latent impressions with digital cameras.
+
+**Commercial Solutions**:
+- IDEMIA MorphoWave Series — Commercial touchless fingerprint systems.
+- Veridium 4F-ID — Smartphone-based 4-fingerprint capture.
+- Telos ONYX — AI-powered FBI-grade touchless fingerprints.
+- Fingerprint Xpress (ISL SDK) — Mobile touchless fingerprint SDK.
 
 ### 6.2 Revision History
 
-| Date | Version | Author | Changes |
-|------|---------|--------|---------|
-| 2026-10-10 | 1.0 | Initial | Initial SRD |
+| Date       | Version   | Author   | Changes     |
+| ---------- | --------- | -------- | ----------- |
+| 2026-10-10 | 1.0       | Initial  | Initial SRD |

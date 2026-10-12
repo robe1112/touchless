@@ -169,15 +169,15 @@ Touchless fingerprint capture technology represents a significant advancement in
 
 ### Product Specifications
 
-| Vendor | Product | Technology | Resolution | Capture Time | Accuracy | Price Range |
-|--------|---------|------------|------------|--------------|----------|-------------|
-| SecuGen | SG-FAP21 | Optical | 500 DPI | <1s | 99.5% | $200-400 |
-| DigitalPersona | BioScan Touchless | Optical | 500 DPI | <0.5s | 99.7% | $300-500 |
-| Suprema | BioStation TS | 3D Optical | 300 DPI | <1s | 99.3% | $400-700 |
-| Morpho | MorphoMS | Multi-spectral | 1000 DPI | <0.3s | 99.8% | $500-900 |
-| Idemia | MorphoMatch | Optical | 500 DPI | <0.5s | 99.6% | $350-600 |
-| ZKTeco | iFace Touchless | Optical+IR | 300 DPI | <1s | 98.5% | $150-300 |
-| Hikvision | DS-K56 | Multi-modal | 500 DPI | <0.8s | 99.0% | $250-450 |
+| Vendor         | Product           | Technology     | Resolution   | Capture Time   | Accuracy   | Price Range   |
+| -------------- | ----------------- | -------------- | ------------ | -------------- | ---------- | ------------- |
+| SecuGen        | SG-FAP21          | Optical        | 500 DPI      | <1s            | 99.5%      | $200-400      |
+| DigitalPersona | BioScan Touchless | Optical        | 500 DPI      | <0.5s          | 99.7%      | $300-500      |
+| Suprema        | BioStation TS     | 3D Optical     | 300 DPI      | <1s            | 99.3%      | $400-700      |
+| Morpho         | MorphoMS          | Multi-spectral | 1000 DPI     | <0.3s          | 99.8%      | $500-900      |
+| Idemia         | MorphoMatch       | Optical        | 500 DPI      | <0.5s          | 99.6%      | $350-600      |
+| ZKTeco         | iFace Touchless   | Optical+IR     | 300 DPI      | <1s            | 98.5%      | $150-300      |
+| Hikvision      | DS-K56            | Multi-modal    | 500 DPI      | <0.8s          | 99.0%      | $250-450      |
 
 ### Detailed Product Information
 
@@ -389,34 +389,34 @@ Touchless fingerprint capture technology represents a significant advancement in
 
 ### Accuracy Metrics
 
-| Metric | Description | Typical Values |
-|--------|-------------|----------------|
-| FAR | False Acceptance Rate | 0.001% - 0.01% |
-| FRR | False Rejection Rate | 1% - 5% |
-| EER | Equal Error Rate | 0.5% - 2% |
-| ROC | Receiver Operating Curve | AUC 0.95-0.99 |
+| Metric   | Description              | Typical Values   |
+| -------- | ------------------------ | ---------------- |
+| FAR      | False Acceptance Rate    | 0.001% - 0.01%   |
+| FRR      | False Rejection Rate     | 1% - 5%          |
+| EER      | Equal Error Rate         | 0.5% - 2%        |
+| ROC      | Receiver Operating Curve | AUC 0.95-0.99    |
 
 ### Performance Benchmarks
 
 #### Touchless vs Traditional
-| System Type | FAR | FRR | Processing Time |
-|-------------|-----|-----|-----------------|
-| Traditional Contact | 0.0001% | 0.1% | <0.5s |
-| Touchless Optical | 0.001% | 1-3% | <1s |
-| Touchless Ultrasonic | 0.0005% | 0.5-2% | <1.5s |
-| Touchless 3D | 0.002% | 2-5% | <2s |
+| System Type          | FAR     | FRR    | Processing Time   |
+| -------------------- | ------- | ------ | ----------------- |
+| Traditional Contact  | 0.0001% | 0.1%   | <0.5s             |
+| Touchless Optical    | 0.001%  | 1-3%   | <1s               |
+| Touchless Ultrasonic | 0.0005% | 0.5-2% | <1.5s             |
+| Touchless 3D         | 0.002%  | 2-5%   | <2s               |
 
 ### Accuracy by Vendor
 
-| Vendor | FAR | FRR | EER | Notes |
-|--------|-----|-----|-----|-------|
-| SecuGen | 0.001% | 1.5% | 0.3% | Optical sensor |
-| DigitalPersona | 0.0005% | 1% | 0.2% | Hybrid sensor |
-| Suprema | 0.002% | 2% | 0.5% | 3D imaging |
-| Morpho | 0.0003% | 0.8% | 0.15% | Multi-spectral |
-| Idemia | 0.001% | 1.2% | 0.35% | Optical |
-| ZKTeco | 0.003% | 3% | 0.8% | Budget option |
-| Hikvision | 0.0015% | 1.8% | 0.45% | Multi-modal |
+| Vendor         | FAR     | FRR   | EER   | Notes          |
+| -------------- | ------- | ----- | ----- | -------------- |
+| SecuGen        | 0.001%  | 1.5%  | 0.3%  | Optical sensor |
+| DigitalPersona | 0.0005% | 1%    | 0.2%  | Hybrid sensor  |
+| Suprema        | 0.002%  | 2%    | 0.5%  | 3D imaging     |
+| Morpho         | 0.0003% | 0.8%  | 0.15% | Multi-spectral |
+| Idemia         | 0.001%  | 1.2%  | 0.35% | Optical        |
+| ZKTeco         | 0.003%  | 3%    | 0.8%  | Budget option  |
+| Hikvision      | 0.0015% | 1.8%  | 0.45% | Multi-modal    |
 
 ### Touchless-Specific Accuracy Factors
 
@@ -574,13 +574,13 @@ Touchless fingerprint capture technology represents a significant advancement in
 5. **Contamination sensitivity**: Dirt, oil, moisture effects
 
 #### Performance Limits
-| Metric | Current Best | Typical |
-|--------|--------------|---------|
-| FAR | 0.0001% | 0.001% |
-| FRR | 0.5% | 2% |
-| Capture Time | 0.3s | 1s |
-| Resolution | 1000 DPI | 500 DPI |
-| Operating Distance | 0-15mm | 0-10mm |
+| Metric             | Current Best   | Typical   |
+| ------------------ | -------------- | --------- |
+| FAR                | 0.0001%        | 0.001%    |
+| FRR                | 0.5%           | 2%        |
+| Capture Time       | 0.3s           | 1s        |
+| Resolution         | 1000 DPI       | 500 DPI   |
+| Operating Distance | 0-15mm         | 0-10mm    |
 
 ### Research Directions
 

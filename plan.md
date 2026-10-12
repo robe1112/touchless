@@ -47,7 +47,13 @@ Build touchless fingerprint capture SDK for iOS, Android, and Flutter. Users cap
 
 **Video Frame Stacking & Temporal Analysis**:
 - **US Patent 8204314B2** — Spatial-temporal signatures for video fingerprinting. Block-based processing with ranking across frames.
-- **Dynamic Behavior Analysis** (Dorai, Ratha & Bolle, 2004) — Detects fingerprint distortion from excessive force and positioning during capture. Works directly on MPEG-1/-2 compressed bitstreams [[1]](https://exa.ai/library/publication/k78rsmmyhrv).
+- **Dynamic Behavior Analysis** (Dorai, Ratha & Bolle, 2004) — Detects fingerprint distortion from excessive force and positioning during capture [[1]](https://exa.ai/library/publication/k78rsmmyhrv).
+
+**Focus Control**:
+- **Manual Autofocus Lock** — Focus distance calibration for 6-12 inch range, sharpness detection for optimal frame selection [[1]](https://pmc.ncbi.nlm.nih.gov/articles/PMC8839666/).
+- **Multi-Burst Capture** — Capture multiple focus distances simultaneously, select sharpest frame.
+- **Focus Quality Validation** — Validate focus quality before accepting captured frame.
+- **Fixed Focal Depth** — Lock focus at calibrated distance for consistent sharpness.
 
 **Capture Modes**:
 - **Individual Finger**: Single finger capture, best accuracy (~95%+)

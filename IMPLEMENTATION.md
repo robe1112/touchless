@@ -106,7 +106,30 @@
 - [ ] Similarity scoring
 - [ ] Threshold-based matching
 
-## Phase 7: Video Super-Resolution (Week 7)
+## Phase 7: Focus Control (Week 7)
+
+### iOS
+- [ ] Manual autofocus lock (AVCaptureDevice focus control)
+- [ ] Focus distance calibration (6-12 inch range)
+- [ ] Multi-burst capture at multiple focus distances
+- [ ] Sharpness detection (Laplacian variance)
+- [ ] Focus quality validation
+- [ ] Fixed focal depth at calibrated distance
+
+### Android
+- [ ] Manual autofocus lock (CameraCharacteristics)
+- [ ] Focus distance calibration (6-12 inch range)
+- [ ] Multi-burst capture at multiple focus distances
+- [ ] Sharpness detection (Laplacian variance)
+- [ ] Focus quality validation
+- [ ] Fixed focal depth at calibrated distance
+
+### Flutter
+- [ ] Camera focus control plugin
+- [ ] Focus distance metadata extraction
+- [ ] Sharpness detection utility
+
+## Phase 8: Video Super-Resolution (Week 8)
 
 ### iOS
 - [ ] CycleSR-style GAN implementation
@@ -127,7 +150,7 @@
 - [ ] Super-resolution plugin
 - [ ] Frame stacking utility
 
-## Phase 8: Rolling Fingerprint Capture (Week 8)
+## Phase 9: Rolling Fingerprint Capture (Week 9)
 
 ### iOS
 - [ ] BlockRFC mosaicking implementation
@@ -143,7 +166,7 @@
 - [ ] Rolling capture UI
 - [ ] Frame alignment
 
-## Phase 9: App Integration (Week 9)
+## Phase 10: App Integration (Week 10)
 
 ### iOS
 - [ ] SwiftUI camera view
@@ -159,7 +182,7 @@
 - [ ] Enrollment flow
 - [ ] Verification flow
 
-## Phase 8: Testing & Optimization (Week 8)
+## Phase 11: Testing & Optimization (Week 11)
 
 - [ ] Unit tests
 - [ ] Integration tests
@@ -167,6 +190,29 @@
 - [ ] Accuracy testing
 - [ ] Documentation
 - [ ] Sample apps
+
+## Phase 12: Fingerprint Flattening (Week 12)
+
+### iOS
+- [ ] 3D surface gradient estimation (CNN)
+- [ ] Arc-length unwarping algorithm
+- [ ] Dense distortion field regression
+- [ ] Parametric warping models
+- [ ] Surface reconstruction pipeline
+
+### Android
+- [ ] 3D surface gradient estimation (CNN)
+- [ ] Arc-length unwarping algorithm
+- [ ] Dense distortion field regression
+- [ ] Parametric warping models
+- [ ] Surface reconstruction pipeline
+
+### Flutter
+- [ ] 3D surface gradient estimation (CNN)
+- [ ] Arc-length unwarping algorithm
+- [ ] Dense distortion field regression
+- [ ] Parametric warping models
+- [ ] Surface reconstruction pipeline
 
 ## Minimal Viable Product (MVP)
 

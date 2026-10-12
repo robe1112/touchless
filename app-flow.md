@@ -160,12 +160,12 @@
 ### State 1: No Hand Detected
 ```
 ┌─────────────────────────┐
-│  [🖐 Hand Not Found]      │
+│  [🖐 Hand Not Found]    │
 │                         │
 │   Please place your     │
 │   hand in the frame     │
 │                         │
-│   [📸 Capture] (disabled)│
+│ [📸 Capture] (disabled) │
 │                         │
 └─────────────────────────┘
 ```
@@ -173,12 +173,12 @@
 ### State 2: Hand Too Close
 ```
 ┌─────────────────────────┐
-│  [✗ Hand Too Close]      │
-│   🔴 3 inches           │
+│   [✗ Hand Too Close]    │
+│     🔴 3 inches         │
 │                         │
-│   Move hand back        │
+│    Move hand back       │
 │                         │
-│   [📸 Capture] (disabled)│
+│ [📸 Capture] (disabled) │
 │                         │
 └─────────────────────────┘
 ```
@@ -191,7 +191,7 @@
 │                         │
 │   Move hand closer      │
 │                         │
-│   [📸 Capture] (disabled)│
+│ [📸 Capture] (disabled) │
 │                         │
 └─────────────────────────┘
 ```
@@ -204,7 +204,7 @@
 │                         │
 │   Ready to capture      │
 │                         │
-│   [📸 Capture] (enabled) │
+│  [📸 Capture] (enabled) │
 │                         │
 └─────────────────────────┘
 ```
@@ -235,30 +235,30 @@ Total:  ~1.25 seconds
 
 ## Error States
 
-| State | Trigger | Action |
-|-------|---------|--------|
-| No hand | No hand in frame | Show "Place hand in frame" |
-| Too close | Distance < 6 inches | Show "Move hand back" |
-| Too far | Distance > 12 inches | Show "Move hand closer" |
-| Poor quality | Low resolution | Show "Improve lighting" |
-| Capture fail | Camera error | Show "Retry capture" |
-| Processing fail | Enhancement error | Show "Retake photo" |
+| State           | Trigger              | Action                     |
+| --------------- | -------------------- | -------------------------- |
+| No hand         | No hand in frame     | Show "Place hand in frame" |
+| Too close       | Distance < 6 inches  | Show "Move hand back"      |
+| Too far         | Distance > 12 inches | Show "Move hand closer"    |
+| Poor quality    | Low resolution       | Show "Improve lighting"    |
+| Capture fail    | Camera error         | Show "Retry capture"       |
+| Processing fail | Enhancement error    | Show "Retake photo"        |
 
 ## Success States
 
-| State | Trigger | Action |
-|-------|---------|--------|
-| Enrollment success | Template stored | Show "Enrollment successful" |
-| Verification match | Score >= 70% | Show "Match confirmed" |
-| Verification no match | Score < 70% | Show "No match found" |
+| State                 | Trigger         | Action                       |
+| --------------------- | --------------- | ---------------------------- |
+| Enrollment success    | Template stored | Show "Enrollment successful" |
+| Verification match    | Score >= 70%    | Show "Match confirmed"       |
+| Verification no match | Score < 70%     | Show "No match found"        |
 
 ## Performance Targets
 
-| Metric | Target |
-|--------|--------|
-| Hand detection | <200ms |
-| Distance measurement | <100ms |
-| Image enhancement | <500ms |
-| Minutiae extraction | <300ms |
-| Template creation | <50ms |
-| Total capture | <1.5s |
+| Metric               | Target   |
+| -------------------- | -------- |
+| Hand detection       | <200ms   |
+| Distance measurement | <100ms   |
+| Image enhancement    | <500ms   |
+| Minutiae extraction  | <300ms   |
+| Template creation    | <50ms    |
+| Total capture        | <1.5s    |

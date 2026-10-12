@@ -214,13 +214,13 @@ Response:
 
 ### Common Errors
 
-| Error | Cause | Resolution |
-|-------|-------|------------|
-| No hand detected | Hand out of frame | Guide user to position hand |
-| Poor image quality | Low resolution, blur | Retake photo, improve lighting |
-| Insufficient minutiae | Fingerprint not captured | Reposition finger |
-| Distance too close | <6 inches | Move hand back |
-| Distance too far | >12 inches | Move hand closer |
+| Error                 | Cause                    | Resolution                     |
+| --------------------- | ------------------------ | ------------------------------ |
+| No hand detected      | Hand out of frame        | Guide user to position hand    |
+| Poor image quality    | Low resolution, blur     | Retake photo, improve lighting |
+| Insufficient minutiae | Fingerprint not captured | Reposition finger              |
+| Distance too close    | <6 inches                | Move hand back                 |
+| Distance too far      | >12 inches               | Move hand closer               |
 
 ### User Feedback
 
@@ -231,14 +231,14 @@ Response:
 
 ## Performance Targets
 
-| Step | Target Time |
-|------|-------------|
-| Hand detection | <200ms |
-| AR distance | <100ms |
-| Image enhancement | <500ms |
-| Minutiae extraction | <300ms |
-| Template matching | <100ms |
-| Total capture | <1.5s |
+| Step                | Target Time   |
+| ------------------- | ------------- |
+| Hand detection      | <200ms        |
+| AR distance         | <100ms        |
+| Image enhancement   | <500ms        |
+| Minutiae extraction | <300ms        |
+| Template matching   | <100ms        |
+| Total capture       | <1.5s         |
 
 ## Security Flow
 
