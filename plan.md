@@ -13,6 +13,15 @@ Build touchless fingerprint capture SDK for iOS, Android, and Flutter. Users cap
 - Accuracy: 70-85% under controlled conditions
 - Multi-frame fusion: up to 90% accuracy
 
+**Video-Based Super-Resolution**:
+- **CycleSR** (Yao, Wang & Zhang, 2024) — Unsupervised GAN for 3D fingerprint super-resolution. Uses binarized interpolation loss to preserve ridge/valley details. Works on low-res fringe patterns without ground truth [[1]](https://exa.ai/library/publication/vtttwfwjfls).
+- **FingerSplat** (Jia, Lu, Cui & Su, 2025) — 3D Gaussian Splatting for fingerprint reconstruction. Reconstructs 3D fingerprints from 3 sparse viewpoints. Generates training data for recognition systems [[2]](https://arxiv.org/html/2509.15648FingerSplat).
+- **YOLOv11s Real-Time Segmentation** (Valdes-Ramirez & Corchado, 2025) — <3.42% failure-to-acquire on first attempt. Segments distal phalanges up to 120cm distance from HD video [[3]](https://gredos.usal.es/handle/10366/166308).
+
+**Rolling Fingerprint Capture**:
+- **BlockRFC** (Zhang et al., 2020) — Real-time rolled fingerprint construction. MGR metric eliminates gaps. Dynamic programming rectifies skin deformation. 0.99% EER [[4]](https://exa.ai/library/publication/lwlr6p73mns).
+- **Krahula Thesis** (Brno Univ. Tech, 2025) — Rotating arm device for fingerprint video. Image stitching for complete rolled fingerprints. 23% FRR [[5]](https://www.vut.cz/en/students/final-thesis/detail/169635).
+
 **3D Reconstruction**: Reconstruct depth from 2D images.
 - Shape from shading
 - Stereo vision
@@ -20,6 +29,10 @@ Build touchless fingerprint capture SDK for iOS, Android, and Flutter. Users cap
 - Monocular 3D reconstruction (Cui et al., IEEE TPAMI 2023)
 - FingerSplat (3D Gaussian Splatting, 2025)
 - FingerNeRF (Neural Radiance Field, 2024)
+
+**Video Frame Stacking & Temporal Analysis**:
+- **US Patent 8204314B2** — Spatial-temporal signatures for video fingerprinting. Block-based processing with ranking across frames.
+- **Dynamic Behavior Analysis** (Dorai, Ratha & Bolle, 2004) — Detects fingerprint distortion from excessive force and positioning during capture. Works directly on MPEG-1/-2 compressed bitstreams [[1]](https://exa.ai/library/publication/k78rsmmyhrv).
 
 **Commercial Solutions**:
 
@@ -85,6 +98,12 @@ Build touchless fingerprint capture SDK for iOS, Android, and Flutter. Users cap
 - Paired flash imaging
 - CNN classifiers for fake detection
 - Texture analysis
+
+**Video-Based Liveness Detection**:
+- **CNN-LSTM** (Chugh & Jain, 2019) — Analyzes 10-frame sequences at 8fps. Detects skin blanching, perspiration, skin distortion. Improves cross-material detection from 81.65% to 86.20% TDR [[1]](https://arxiv.org/pdf/1912.08240.pdf).
+- **GestSpoof** (2024) — Requires intentional gestures (slide, twist) during capture. Captures elastic properties of live skin. New dataset: 3,680 videos from 184 fingers [[2]](https://exa.ai/library/publication/9lfzr7tdpfn).
+- **Dual-Model Synergy** (Cheniti et al., 2025) — VGG16 + ResNet50 combination. 99.72% accuracy on LivDet 2013 [[3]](https://www.mdpi.com/2313-433X/11/2/42).
+- **Spatio-Temporal Features** (Husseis et al., 2021) — VLBP, LBP-TOP, VLPQ descriptors. 1.11% BPCER on optical sensors [[4]](https://www.mdpi.com/1424-8220/21/6/2059).
 
 **Performance**:
 - EER target: <1% for commercial

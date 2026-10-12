@@ -56,6 +56,17 @@ Mobile SDK integrated into biometric authentication apps. Replaces traditional c
 - **FR-CAM-005**: Support rear-facing camera (higher quality)
 - **FR-CAM-006**: Real-time preview with hand detection overlay
 
+#### 3.1.2 Video Capture & Super-Resolution
+- **FR-CAM-010**: Capture fingerprint video at 30fps minimum
+- **FR-CAM-011**: Support YOLOv11s real-time segmentation for distal phalanges
+- **FR-CAM-012**: Frame stacking with sub-pixel alignment
+- **FR-CAM-013**: CycleSR-style unsupervised GAN for super-resolution
+- **FR-CAM-014**: Ridge/valley preservation in enhancement
+- **FR-CAM-015**: Failure-to-acquire rate <3.42% on first attempt
+- **FR-CAM-016**: Rolling fingerprint capture with BlockRFC mosaicking
+- **FR-CAM-017**: MGR (Mosaicking Gap Rate) metric <1%
+- **FR-CAM-018**: Real-time distortion rectification for rolling capture
+
 #### 3.1.2 AR Guidance
 - **FR-AR-001**: SDK shall use ARKit (iOS) / ARCore (Android) for distance measurement
 - **FR-AR-002**: Display distance indicator to user
@@ -93,9 +104,17 @@ Mobile SDK integrated into biometric authentication apps. Replaces traditional c
 - **FR-PROC-014**: Extract orientation for each minutia
 - **FR-PROC-015**: Extraction accuracy > 85%
 
-#### 3.3.3 Performance
-- **FR-PROC-020**: Enhancement < 500ms
-- **FR-PROC-021**: Minutiae extraction < 300ms
+#### 3.3.4 Super-Resolution & Frame Stacking
+- **FR-PROC-020**: CycleSR-style unsupervised GAN for super-resolution
+- **FR-PROC-021**: Preserve ridge/valley details during enhancement
+- **FR-PROC-022**: Multi-frame stacking with optical flow alignment
+- **FR-PROC-023**: Temporal feature extraction (VLBP, LBP-TOP)
+- **FR-PROC-024**: FingerSplat 3D reconstruction from sparse viewpoints
+- **FR-PROC-025**: BlockRFC rolling fingerprint construction
+- **FR-PROC-026**: MGR metric for gap elimination
+- **FR-PROC-027**: Real-time distortion rectification
+- **FR-PROC-028**: Enhancement < 500ms
+- **FR-PROC-029**: Minutiae extraction < 300ms
 
 ### 3.4 Template Requirements
 
@@ -130,18 +149,26 @@ Mobile SDK integrated into biometric authentication apps. Replaces traditional c
 
 ### 3.6 Liveness Detection Requirements
 
-#### 3.6.1 Spoof Detection
+#### 3.6.1 Video-Based Liveness Detection
 - **FR-LIVE-001**: Detect photo-based spoofing
 - **FR-LIVE-002**: Detect screen replay attacks
 - **FR-LIVE-003**: Detect printed fingerprint attacks
 - **FR-LIVE-004**: Texture analysis for liveness
 - **FR-LIVE-005**: Reflection pattern analysis
 - **FR-LIVE-006**: Liveness detection accuracy > 95%
+- **FR-LIVE-007**: CNN-LSTM temporal analysis (10-frame sequences at 8fps)
+- **FR-LIVE-008**: Detect skin blanching, perspiration, skin distortion
+- **FR-LIVE-009**: Cross-material detection TDR > 86.20%
+- **FR-LIVE-010**: GestSpoof gesture-based detection (slide, twist)
+- **FR-LIVE-011**: Elastic property capture via intentional gestures
+- **FR-LIVE-012**: Dual-model ensemble (VGG16 + ResNet50)
+- **FR-LIVE-013**: Spatio-temporal features (VLBP, LBP-TOP, VLPQ)
+- **FR-LIVE-014**: BPCER < 1.11% on optical sensors
 
 #### 3.6.2 Anti-Spoofing
-- **FR-LIVE-010**: Reject non-live fingerprints
-- **FR-LIVE-011**: Log spoofing attempts
-- **FR-LIVE-012**: Configurable spoof sensitivity
+- **FR-LIVE-020**: Reject non-live fingerprints
+- **FR-LIVE-021**: Log spoofing attempts
+- **FR-LIVE-022**: Configurable spoof sensitivity
 
 ### 3.7 User Interface Requirements
 
@@ -167,6 +194,13 @@ Mobile SDK integrated into biometric authentication apps. Replaces traditional c
 - **FR-PERF-005**: Total enrollment < 2 seconds
 - **FR-PERF-006**: Total verification < 1 second
 - **FR-PERF-007**: Memory usage < 200MB
+- **FR-PERF-008**: Video capture 30fps minimum
+- **FR-PERF-009**: YOLOv11s segmentation <100ms per frame
+- **FR-PERF-010**: Super-resolution <300ms per frame
+- **FR-PERF-011**: CNN-LSTM liveness detection <500ms
+- **FR-PERF-012**: Frame stacking alignment <150ms
+- **FR-PERF-013**: BlockRFC mosaicking real-time
+- **FR-PERF-014**: Rolling fingerprint EER <1%
 
 ### 3.9 Security Requirements
 
@@ -177,6 +211,12 @@ Mobile SDK integrated into biometric authentication apps. Replaces traditional c
 - **FR-SEC-005**: Comply with BIPA/GDPR
 - **FR-SEC-006**: User consent required before capture
 - **FR-SEC-007**: Option to delete biometric data
+- **FR-SEC-008**: Video-based liveness detection (CNN-LSTM)
+- **FR-SEC-009**: Cross-material spoof detection TDR > 86%
+- **FR-SEC-010**: Gesture-based elastic property verification
+- **FR-SEC-011**: Dual-model ensemble spoof detection
+- **FR-SEC-012**: Spatio-temporal feature analysis
+- **FR-SEC-013**: APCER < 1.11% on optical sensors
 
 ### 3.10 Compatibility Requirements
 
